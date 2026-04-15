@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vincent Singh | Portfolio</title>
+
+<style>
+:root {
+  --bg: #eef2f7;
+  --card: #ffffff;
+  --border: #dbe3ec;
+  --text: #0f172a;
+  --muted: #64748b;
+  --accent: #16a34a;
+}
+
+body.dark {
+  --bg: #030712;
+  --card: #071426;
+  --border: #12324d;
+  --text: #d6eaff;
+  --muted: #6f8ca3;
+  --accent: #00e0ff;
+}
+
+/* background modes */
+body {
+  background: linear-gradient(to bottom, #eef2f7, #e6edf5);
+  color: var(--text);
+}
+
+body.dark {
+  background: radial-gradient(circle at top, #041a2e, #030712 70%);
+}
+
+/* scanline */
+body.dark::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui;
+  transition: 0.25s;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+}
+
+header img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+
+h1 { font-size: 1.8rem; }
+header p { color: var(--muted); }
+
+/* ECG */
+.ecg {
+  width: 100%;
+  height: 40px;
+  margin-top: 10px;
+}
+
+.ecg polyline {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: ecg 2s linear infinite;
+}
+
+@keyframes ecg {
+  to { stroke-dashoffset: 0; }
+}
+
+/* TOGGLE */
+.toggle {
+  margin-top: 10px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+}
+
+.toggle:hover {
+  border-color: var(--accent);
+}
+
+/* NAV */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  padding-bottom: 1.5rem;
+}
+
+nav a {
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* SECTIONS */
+section {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem 1rem;
+}
+
+.fade {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.6s;
+}
+
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+h2 {
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+/* CARD */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.card:hover { transform: translateY(-2px); }
+
+/* VITALS */
+.vitals {
+  display: flex;
+  justify-content: space-between;
+}
+
+.vitals span { color: var(--accent); }
+
+/* TERMINAL */
+.terminal {
+  background: #000;
+  color: #00ff9c;
+  font-family: monospace;
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.terminal::after {
+  content: "_";
+  animation: blink 1s infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+/* SKILLS */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.skills span {
+  border: 1px solid var(--border);
+  padding: 4px 6px;
+  font-size: 0.75rem;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--muted);
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<img src="profile.jpg">
+<h1>Vincent Singh</h1>
+<p>Cardiac Nurse • Systems Thinking • Health-Tech Exploration</p>
+
+<svg class="ecg" viewBox="0 0 500 40">
+<polyline points="0,20 40,20 60,5 80,35 100,20 140,20 160,5 180,35 200,20 500,20"/>
+</svg>
+
+<button class="toggle" onclick="toggleTheme()">
+<span class="icon">☀️</span>
+</button>
+</header>
+
+<nav>
+<a href="#system">System</a>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#experience">Experience</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<section id="system" class="fade">
+<h2>Vitals</h2>
+<div class="card vitals">
+<div>HR: <span id="hr">78</span></div>
+<div>BP: <span>120/80</span></div>
+<div>SpO₂: <span id="spo2">98%</span></div>
+</div>
+
+<div class="card terminal" id="terminal"></div>
+</section>
+
+<section id="about" class="fade">
+<h2>About</h2>
+<div class="card">
+Cardiac nurse in critical care environments. I focus on clarity, response, and real-world systems.
+</div>
+</section>
+
+<section id="skills" class="fade">
+<h2>Skills</h2>
+<div class="card skills">
+<span>Critical Care</span>
+<span>Cardiac Monitoring</span>
+<span>ABG Analysis</span>
+<span>Emergency Response</span>
+</div>
+</section>
+
+<section id="experience" class="fade">
+<h2>Experience</h2>
+<div class="card">
+<h3>Cardiac Nurse</h3>
+<p><strong>Metro Hospital</strong> • 2022–2024</p>
+<p>Managed high-dependency patients, monitored ECG and vitals, assisted in emergencies.</p>
+</div>
+</section>
+
+<section id="projects" class="fade">
+<h2>Projects</h2>
+<div class="card">
+<h3>ICU Training Assistant</h3>
+<p>Voice-based ICU training system.</p>
+</div>
+
+<div class="card">
+<h3>Urban Utility Locator</h3>
+<p>Maps essential public utilities.</p>
+</div>
+</section>
+
+<section id="contact" class="fade">
+<h2>Contact</h2>
+<div class="card">
+<p>Email: <a href="mailto:vincentanmol13@gmail.com">vincentanmol13@gmail.com</a></p>
+<p>GitHub: <a href="https://github.com/vincentanmol">github.com/vincentanmol</a></p>
+</div>
+</section>
+
+<footer>© 2026 Vincent Singh</footer>
+
+<script>
+// THEME
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+  const icon = document.querySelector(".icon");
+  icon.textContent = document.body.classList.contains("dark") ? "🌙" : "☀️";
+}
+
+// VITALS
+setInterval(() => {
+  document.getElementById("hr").textContent = 70 + Math.floor(Math.random()*15);
+  document.getElementById("spo2").textContent = 95 + Math.floor(Math.random()*4) + "%";
+}, 2000);
+
+// TERMINAL
+const lines = ["Initializing...", "Loading modules...", "Vitals active", "System stable"];
+let i = 0;
+function type() {
+  if(i < lines.length){
+    document.getElementById("terminal").innerHTML += lines[i] + "<br>";
+    i++;
+    setTimeout(type, 800);
+  }
+}
+type();
+
+// SCROLL
+const fades = document.querySelectorAll(".fade");
+function check() {
+  fades.forEach(el=>{
+    if(el.getBoundingClientRect().top < window.innerHeight-50){
+      el.classList.add("show");
+    }
+  });
+}
+window.addEventListener("scroll", check);
+check();
+</script>
+
+</body>
+</html>
